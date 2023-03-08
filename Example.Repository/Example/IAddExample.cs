@@ -6,5 +6,7 @@ namespace Example.Repository.Example
     public interface IAddExample
     {
         Task<ExampleDto> ExecuteAsync(ExampleDto example);
+
+        Task<List<ExampleDto>> ExecuteRangeAsync(List<ExampleDto> examples);
     }
 }

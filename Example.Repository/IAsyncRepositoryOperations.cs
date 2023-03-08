@@ -25,5 +25,10 @@ namespace Example.Repository
 
         Task DeleteByIdAsync(int id);
 
+        Task<int> UpdateRangeAsync(IList<T> entity);
+
+        Task<int> AddRangeAsync(IList<T> entity);
+
+        Task<int> DeleteRangeAsync(IList<T> entity);
     }
 }

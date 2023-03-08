@@ -2,7 +2,6 @@
 using Example.Common.Messages;
 using Example.Common.Utility;
 using Microsoft.AspNetCore.Http;
-using Newtonsoft.Json;
 using System.Data.SqlClient;
 using System.Net;
 using System.Text.Json;

@@ -18,6 +18,17 @@ namespace Example.Api.Controllers
         }
 
         /// <summary>
+        /// Test
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [Route(AppConstants.ApiVersion + "/example/TestApi")]
+        public async Task<IActionResult> TestApi()
+        {
+            return Ok("Welcome to Microservice world!");
+        }
+
+        /// <summary>
         /// Get examples
         /// </summary>
         /// <returns></returns>
@@ -96,6 +107,16 @@ namespace Example.Api.Controllers
         {
             var result = await mediator.Send(request).ConfigureAwait(false);
             return Ok(CustomSuccessResponse.GetSuccessResponse<CommonResponse, int, string>(result.ExampleId, AppConstants.SuccessMessage.Deleted.ToString()));
+        }
+
+        [ProducesResponseType(typeof(CommonResponse), StatusCodes.Status200OK)]
+        [HttpPost]
+        [Route(AppConstants.ApiVersion + "/example/bulkInsertExample")]
+        public async Task<IActionResult> BulkInsertExample([FromForm] BulkInsertExampleRequest request)
+        {
+            var result = await mediator.Send(request).ConfigureAwait(false);
+
+            return Ok(CustomSuccessResponse.GetSuccessResponse<CommonResponse, List<ExampleModel>, string>(result.ExampleModels, AppConstants.SuccessMessage.Inserted.ToString()));
         }
     }
 }

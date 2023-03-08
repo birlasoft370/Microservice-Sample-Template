@@ -25,5 +25,12 @@ namespace Example.RepositoryHandler.MsSql.EF.Example
 
             return result;
         }
+
+        public async Task<List<ExampleDto>> ExecuteRangeAsync(List<ExampleDto> examples)
+        {
+            var result = await exampleOperations.AddRangeAsync(examples).ConfigureAwait(false);
+
+            return examples;
+        }
     }
 }

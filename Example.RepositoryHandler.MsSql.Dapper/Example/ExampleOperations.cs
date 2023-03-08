@@ -125,5 +125,20 @@ namespace Example.RepositoryHandler.MsSql.Dapper.Example
         {
             throw new NotImplementedException();
         }
+
+        public Task<int> UpdateRangeAsync(IList<ExampleDto> entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<int> AddRangeAsync(IList<ExampleDto> entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<int> DeleteRangeAsync(IList<ExampleDto> entity)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
