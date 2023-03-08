@@ -1,4 +1,5 @@
-﻿using Example.DataTransfer;
+﻿// Copyright © CompanyName. All Rights Reserved.
+using Example.DataTransfer;
 using Example.Repository;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
@@ -135,6 +136,16 @@ namespace Example.RepositoryHandler.MsSql.EF.CoreSql
         {
             applicationDbContext.Set<T>().RemoveRange(entity);
             return await applicationDbContext.SaveChangesAsync().ConfigureAwait(false);
+        }
+        public async Task ChangeDeletedStatusAsync(int id)
+        {
+            var entity = await ApplicationDbContext.Set<T>().FindAsync(id);
+            if (entity != null)
+            {
+                // entity.IsDeleted = (entity.IsDeleted == ((char)AppConstants.IsDeleted.No) ? ((char)AppConstants.IsDeleted.Yes) : ((char)AppConstants.IsDeleted.No));
+                ApplicationDbContext.Set<T>().Update(entity);
+                await ApplicationDbContext.SaveChangesAsync().ConfigureAwait(false);
+            }
         }
     }
 }

@@ -6,4 +6,15 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="12.0.1" />
+    <PackageReference Include="MassTransit" Version="8.0.13" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Example.DataTransfer\Example.DataTransfer.csproj" />
+    <ProjectReference Include="..\Example.DomainModel\Example.DomainModel.csproj" />
+    <ProjectReference Include="..\Example.Repository\Example.Repository.csproj" />
+  </ItemGroup>
+
 </Project>

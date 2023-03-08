@@ -1,9 +1,4 @@
 ﻿using Example.DataTransfer.Examples;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Example.Repository.Example
 {
@@ -14,5 +9,9 @@ namespace Example.Repository.Example
         Task<ExampleDto> GetExampleByExampleIdAsync(int exampleId);
 
         Task DeleteExampleByExampleIdAsync(int exampleId);
+
+        Task<IEnumerable<ExampleDto>> AddUpdateExample(int exampleId,ExampleDto exampleDto);
+
+        Task<bool> DuplicateCheckExample(string exampleName, int exampleId);
     }
 }
