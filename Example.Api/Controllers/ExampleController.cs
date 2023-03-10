@@ -25,7 +25,7 @@ namespace Example.Api.Controllers
         [Route(AppConstants.ApiVersion + "/example/TestApi")]
         public async Task<IActionResult> TestApi()
         {
-            return Ok(await Task.FromResult("Welcome to Microservice world!"));
+            return Ok(await Task.FromResult($"Welcome to Microservice world! {DateTime.Now}"));
         }
 
         /// <summary>
