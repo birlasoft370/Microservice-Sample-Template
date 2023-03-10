@@ -5,6 +5,6 @@ namespace Example.Repository.Example
 {
     public interface IAddUpdateExample
     {
-        Task<List<ExampleDto>> ExecuteAsync(int exampleId, ExampleDto exampleDto);
+        Task<IEnumerable<ExampleDto>> ExecuteAsync(int exampleId, ExampleDto exampleDto);
     }
 }

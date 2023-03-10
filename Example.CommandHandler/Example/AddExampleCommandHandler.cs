@@ -3,7 +3,6 @@ using AutoMapper;
 using Example.DataTransfer.Examples;
 using Example.DomainModel.Example;
 using Example.Repository.Example;
-using MassTransit;
 using MediatR;
 
 namespace Example.CommandHandler.Example

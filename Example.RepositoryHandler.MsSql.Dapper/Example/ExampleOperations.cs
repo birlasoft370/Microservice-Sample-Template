@@ -1,4 +1,6 @@
-﻿using Dapper;
+﻿// Copyright © CompanyName. All Rights Reserved.
+using Dapper;
+using Example.Common.Utility;
 using Example.DataTransfer.Examples;
 using Example.Repository.Example;
 using Example.RepositoryHandler.MsSql.Dapper.CoreSql;
@@ -45,8 +47,8 @@ namespace Example.RepositoryHandler.MsSql.Dapper.Example
 
             var affectedExampleId =
                 await connection.QuerySingleAsync<int>(@"
-                    INSERT INTO Example (ExampleName,CreatedBy, CreatedDate,LastModifiedBy,LastModifiedDate)
-                    VALUES (@ExampleName,@CreatedBy,@CreatedDate,@LastModifiedBy,@LastModifiedDate);
+                    INSERT INTO Example (ExampleName,CreatedBy, CreatedDate,LastModifiedBy,LastModifiedDate,IsActive)
+                    VALUES (@ExampleName,@CreatedBy,@CreatedDate,@LastModifiedBy,@LastModifiedDate,@IsActive);
                     SELECT CAST(SCOPE_IDENTITY() as int)", new
                 {
                     entity.ExampleName,
@@ -81,6 +83,54 @@ namespace Example.RepositoryHandler.MsSql.Dapper.Example
             this.ConnectionClose();
         }
 
+        public async Task<IEnumerable<ExampleDto>> AddUpdateExample(int exampleId, ExampleDto exampleDto)
+        {
+            List<ExampleDto> exampleList = new();
+
+            int affectedExampleId;
+
+            var existExample = await GetByIdAsync(exampleId) ?? throw new Exception($"ExampleId. Record with Id : {exampleId} not found");
+            
+            using (var connection = this.ConnectionOpen())
+            using (var transaction = connection.BeginTransaction())
+            {
+                affectedExampleId = await connection.QuerySingleAsync<int>(
+                       $"INSERT INTO Example (ExampleName, CreatedBy, CreatedDate, LastModifiedBy, LastModifiedDate, IsActive)" +
+                       $"VALUES(@ExampleName, @CreatedBy, @CreatedDate, @LastModifiedBy, @LastModifiedDate, @IsActive)" +
+                       $"SELECT CAST(SCOPE_IDENTITY() as int)", new
+                       {
+                           exampleDto.ExampleName,
+                           exampleDto.CreatedBy,
+                           CreatedDate = DateTime.Now,
+                           exampleDto.LastModifiedBy,
+                           LastModifiedDate = DateTime.Now,
+                           exampleDto.IsActive
+                       }, transaction);
+
+                existExample.IsActive = existExample.IsActive == (char)AppConstants.IsActive.Yes ? (char)AppConstants.IsActive.No : (char)AppConstants.IsActive.Yes;
+                await connection.ExecuteAsync
+                    ("UPDATE Example SET IsActive=@IsActive, LastModifiedBy = @LastModifiedBy, LastModifiedDate = @LastModifiedDate WHERE ExampleId = @ExampleId",
+                new { existExample.IsActive, exampleDto.LastModifiedBy, LastModifiedDate = DateTime.Now, ExampleId = exampleId }, transaction);
+
+                transaction.Commit();
+
+                var insertedExample = await GetByIdAsync(affectedExampleId);
+                exampleList.Add(insertedExample);
+                var updatedExample = await GetByIdAsync(exampleId);
+                exampleList.Add(updatedExample);
+            }
+
+            return exampleList;
+
+        }
+
+        public async Task<bool> DuplicateCheckExample(string exampleName, int exampleId)
+        {
+            var examples = await GetAllAsync();
+            bool duplicateRecordFlag = examples.ToList().Exists(x => x.ExampleName.Trim().ToLower() == exampleName.Trim().ToLower() && (x.ExampleId != exampleId));
+            return duplicateRecordFlag;
+        }
+
         public Task DeleteByIdAsync(int id)
         {
             throw new NotImplementedException();
@@ -112,16 +162,6 @@ namespace Example.RepositoryHandler.MsSql.Dapper.Example
         }
 
         public Task DeleteAsync(ExampleDto entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<IEnumerable<ExampleDto>> AddUpdateExample(int exampleId, ExampleDto exampleDto)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<bool> DuplicateCheckExample(string exampleName, int exampleId)
         {
             throw new NotImplementedException();
         }

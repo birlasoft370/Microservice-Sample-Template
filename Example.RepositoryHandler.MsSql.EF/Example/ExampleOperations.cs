@@ -4,6 +4,7 @@ using Example.Common.Utility;
 using Example.DataTransfer.Examples;
 using Example.Repository.Example;
 using Example.RepositoryHandler.MsSql.EF.CoreSql;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 
 namespace Example.RepositoryHandler.MsSql.EF.Example
@@ -16,7 +17,8 @@ namespace Example.RepositoryHandler.MsSql.EF.Example
 
         public async Task<ExampleDto> GetExampleByExampleIdAsync(int exampleId)
         {
-            return await ApplicationDbContext.Example.FirstOrDefaultAsync(o => o.ExampleId == exampleId).ConfigureAwait(false);
+            return await
+                ApplicationDbContext.Example.FirstOrDefaultAsync(o => o.ExampleId == exampleId).ConfigureAwait(false) ?? await Task.FromResult<ExampleDto>(null);
         }
 
         public async Task<IEnumerable<ExampleDto>> GetExampleByNameAsync(string name)
@@ -29,6 +31,8 @@ namespace Example.RepositoryHandler.MsSql.EF.Example
 
         public async Task DeleteExampleByExampleIdAsync(int exampleId)
         {
+            // var GetSingleExample = ApplicationDbContext.Example.FromSqlRaw($"GetExampleById {exampleId}").AsEnumerable().FirstOrDefault();
+
             var entity = await (ApplicationDbContext.Example
                                    .Where(o => o.ExampleId == exampleId)
                                    ?.ToListAsync()).ConfigureAwait(false);
@@ -41,7 +45,7 @@ namespace Example.RepositoryHandler.MsSql.EF.Example
 
         public async Task<IEnumerable<ExampleDto>> AddUpdateExample(int exampleId, ExampleDto exampleDto)
         {
-            List<ExampleDto> exampleDtos = new List<ExampleDto>();
+            List<ExampleDto> exampleDtos = new();
 
             //Add Example
 

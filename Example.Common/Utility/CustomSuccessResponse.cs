@@ -7,10 +7,12 @@ namespace Example.Common.Utility
     {
         public static T GetSuccessResponse<T, X, Y>(X entity, Y message)
         {
-            var response = new CommonResponse();
-            response.Status = AppConstants.Status.Success.ToString();
-            response.TimeStamp = System.DateTime.Now;
-            response.DeveloperMessage = message.ToString();
+            var response = new CommonResponse
+            {
+                Status = AppConstants.Status.Success.ToString(),
+                TimeStamp = System.DateTime.Now,
+                DeveloperMessage = message.ToString()
+            };
             var customResponseDetails = new CommonResponse.Details()
             {
                 Code = AppConstants.SuccessCode,

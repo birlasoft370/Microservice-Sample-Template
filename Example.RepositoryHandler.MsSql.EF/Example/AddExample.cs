@@ -18,7 +18,7 @@ namespace Example.RepositoryHandler.MsSql.EF.Example
         {
             if (await exampleOperations.DuplicateCheckExample(example.ExampleName, example.ExampleId))
             {
-                throw new DuplicateRecordException($"ExampleName.{example.ExampleName}already exist");
+                throw new DuplicateRecordException($"ExampleName.{example.ExampleName} already exist");
             }
 
             var result = await exampleOperations.AddAsync(example).ConfigureAwait(false);
@@ -30,7 +30,15 @@ namespace Example.RepositoryHandler.MsSql.EF.Example
         {
             var result = await exampleOperations.AddRangeAsync(examples).ConfigureAwait(false);
 
-            return examples;
+            if (result > 0)
+            {
+                return examples;
+            }
+            else
+            {
+                return null;
+            }
+
         }
     }
 }

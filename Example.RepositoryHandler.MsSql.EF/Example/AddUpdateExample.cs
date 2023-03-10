@@ -20,11 +20,9 @@ namespace Example.RepositoryHandler.MsSql.EF.Example
             return result;
         }
 
-        public async Task<List<ExampleDto>> ExecuteAsync(int exampleId, ExampleDto exampleDto)
+        public async Task<IEnumerable<ExampleDto>> ExecuteAsync(int exampleId, ExampleDto exampleDto)
         {
-            var result = await exampleOperations.AddUpdateExample(exampleId, exampleDto).ConfigureAwait(false);
-
-            return result.ToList();
+            return await exampleOperations.AddUpdateExample(exampleId, exampleDto).ConfigureAwait(false);
         }
     }
 }

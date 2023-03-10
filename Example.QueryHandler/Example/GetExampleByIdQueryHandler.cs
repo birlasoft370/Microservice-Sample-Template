@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿// Copyright © CompanyName. All Rights Reserved.
+using AutoMapper;
 using Example.Common.Exceptions;
 using Example.DomainModel.Example;
 using Example.Repository.Examples;
@@ -29,15 +30,8 @@ namespace Example.QueryHandler.Example
 
         private async Task<ExampleModel> GetExampleById(int exampleId)
         {
-            var exampleDto = await this.getExampleById.ExecuteAsync(exampleId).ConfigureAwait(false);
-
-            if (exampleDto == null)
-            {
-                throw new NotFoundException($"exampleId. Record with Id {exampleId} Not Found");
-            }
-
+            var exampleDto = await this.getExampleById.ExecuteAsync(exampleId).ConfigureAwait(false) ?? throw new NotFoundException($"exampleId. Record with Id {exampleId} Not Found");
             var exampleModel = mapper.Map<ExampleModel>(exampleDto);
-
             return exampleModel;
         }
     }

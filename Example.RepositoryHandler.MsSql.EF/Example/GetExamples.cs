@@ -1,11 +1,7 @@
-﻿using Example.DataTransfer.Examples;
+﻿// Copyright © CompanyName. All Rights Reserved.
+using Example.DataTransfer.Examples;
 using Example.Repository.Example;
 using Example.Repository.Examples;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Example.RepositoryHandler.MsSql.EF.Example
 {

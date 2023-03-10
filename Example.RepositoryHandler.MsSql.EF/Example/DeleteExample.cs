@@ -14,6 +14,8 @@ namespace Example.RepositoryHandler.MsSql.EF.Example
 
         public async Task ExecuteAsync(int exampleId)
         {
+            //Stored Procedure
+            //await exampleOperations.DeleteExampleByExampleIdAsync(exampleId).ConfigureAwait(false);
             await exampleOperations.DeleteExampleByExampleIdAsync(exampleId).ConfigureAwait(false);
         }
     }

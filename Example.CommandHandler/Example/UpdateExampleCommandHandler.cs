@@ -1,4 +1,4 @@
-﻿// Copyright © CompanyName. All Rights Reserved.x
+﻿// Copyright © CompanyName. All Rights Reserved.
 using AutoMapper;
 using Example.DataTransfer.Examples;
 using Example.DomainModel.Example;

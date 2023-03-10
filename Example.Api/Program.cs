@@ -12,7 +12,6 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddSqlEfRepositoryServices(builder.Configuration);
 builder.Services.ServiceCollectionExtension();
 
-//builder.Services.AddTransient<GlobalExceptionHandling>();
 builder.Services.AddControllers(
     options => options.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true)
     .AddNewtonsoftJson();

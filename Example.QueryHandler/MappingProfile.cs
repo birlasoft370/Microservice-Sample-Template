@@ -4,7 +4,7 @@ using Example.DomainModel.Example;
 
 namespace Example.QueryHandler
 {
-    internal class MappingProfile : Profile
+    public class MappingProfile : Profile
     {
         public MappingProfile()
         {

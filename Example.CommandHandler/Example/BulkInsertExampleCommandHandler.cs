@@ -23,14 +23,14 @@ namespace Example.CommandHandler.Example
         public async Task<BulkInsertExampleResponse> Handle(BulkInsertExampleRequest request, CancellationToken cancellationToken)
         {
             BulkInsertExampleCsvSampleFormatModel[] records = null;
-            List<ExampleDto> exampleDtos = new List<ExampleDto>();
+            List<ExampleDto> exampleDtos = new();
 
             IFormFile postedFile = request.BulkInsertExampleModel.UploadedFile;
 
-            FileHelperEngine engine = new FileHelperEngine(typeof(BulkInsertExampleCsvSampleFormatModel));
+            FileHelperEngine engine = new(typeof(BulkInsertExampleCsvSampleFormatModel));
             using (var ms = new MemoryStream())
             {
-                await postedFile.CopyToAsync(ms);
+                await postedFile.CopyToAsync(ms, cancellationToken);
                 ms.Seek(0, SeekOrigin.Begin);
 
                 records = (BulkInsertExampleCsvSampleFormatModel[])engine.ReadStream(new StreamReader(ms), Int32.MaxValue);
@@ -52,7 +52,7 @@ namespace Example.CommandHandler.Example
             //Bulk Insert
             foreach (var Example in records)
             {
-                ExampleDto exampleDto = new ExampleDto()
+                ExampleDto exampleDto = new()
                 {
                     CreatedBy = request.BulkInsertExampleModel.UserID,
                     LastModifiedBy = request.BulkInsertExampleModel.UserID,
