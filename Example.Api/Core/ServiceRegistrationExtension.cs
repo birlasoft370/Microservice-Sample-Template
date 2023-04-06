@@ -11,6 +11,7 @@ namespace Example.Api.Core
 {
     public static class ServiceRegistrationExtension
     {
+        //This is new changes as per requirement
         public static IServiceCollection ServiceCollectionExtension(this IServiceCollection services)
         {
 
