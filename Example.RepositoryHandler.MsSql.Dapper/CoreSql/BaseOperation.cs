@@ -1,6 +1,8 @@
-﻿using Example.DataTransfer;
+﻿using Dapper;
+using Example.DataTransfer;
 using Example.Repository;
 using Microsoft.Extensions.Configuration;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq.Expressions;
 
@@ -44,6 +46,21 @@ namespace Example.RepositoryHandler.MsSql.Dapper.CoreSql
             }
 
             disposed = true;
+        }
+
+        internal IDbConnection GetOpenConnection()
+        {
+            var connection = new SqlConnection(connectionString);
+            connection.Open();
+            return connection;
+        }
+
+        public List<T> GetAllRecs<T>(string storedProcedure, DynamicParameters param) where T : class
+        {
+            using (var connection = GetOpenConnection())
+            {
+                return connection.Query<T>(storedProcedure, param, commandType: CommandType.StoredProcedure).ToList();
+            }
         }
     }
 }

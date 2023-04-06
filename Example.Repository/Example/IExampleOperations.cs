@@ -13,5 +13,8 @@ namespace Example.Repository.Example
         Task<IEnumerable<ExampleDto>> AddUpdateExample(int exampleId,ExampleDto exampleDto);
 
         Task<bool> DuplicateCheckExample(string exampleName, int exampleId);
+
+        Task<List<ExampleDto>> GetExamplesAsync(int exampleId);
+
     }
 }

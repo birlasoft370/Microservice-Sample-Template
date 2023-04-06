@@ -2,6 +2,9 @@
 using Example.Common.Messages;
 using Example.Common.Utility;
 using Example.DomainModel.Example;
+using Example.DomainModel.Example.Request;
+using Example.Repository.Example;
+using Example.Repository.Examples;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,10 +13,12 @@ namespace Example.Api.Controllers
     [ApiController]
     public class ExampleController : ControllerBase
     {
+        // private readonly IExamples examples;
         private readonly IMediator mediator;
 
-        public ExampleController(IMediator mediator)
+        public ExampleController(IMediator mediator)//IExamples examples, 
         {
+            //this.examples = examples;
             this.mediator = mediator;
         }
 
@@ -48,9 +53,9 @@ namespace Example.Api.Controllers
         [ProducesResponseType(typeof(CommonResponse), StatusCodes.Status200OK)]
         [HttpGet]
         [Route(AppConstants.ApiVersion + "/example/getExampleById")]
-        public async Task<IActionResult> GetExampleById([FromQuery] GetExampleByIdRequest query)
+        public async Task<IActionResult> GetExampleById([FromQuery] GetExampleByIdRequest request)
         {
-            var result = await mediator.Send(query).ConfigureAwait(false);
+            var result = await mediator.Send(request).ConfigureAwait(false);
             return Ok(CustomSuccessResponse.GetSuccessResponse<CommonResponse, ExampleModel, string>(result.ExampleModel, AppConstants.SuccessMessage.List.ToString()));
         }
 
@@ -64,6 +69,7 @@ namespace Example.Api.Controllers
         [Route(AppConstants.ApiVersion + "/example/addExample")]
         public async Task<IActionResult> AddExample([FromBody] AddExampleRequest request)
         {
+            // var result = await examples.AddExample(request).ConfigureAwait(false);
             var result = await mediator.Send(request).ConfigureAwait(false);
             return Ok(CustomSuccessResponse.GetSuccessResponse<CommonResponse, ExampleModel, string>(result.ExampleModel, AppConstants.SuccessMessage.Inserted.ToString()));
         }

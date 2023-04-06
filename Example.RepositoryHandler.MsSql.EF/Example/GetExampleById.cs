@@ -16,7 +16,10 @@ namespace Example.RepositoryHandler.MsSql.EF.Example
 
         public async Task<ExampleDto> ExecuteAsync(int exampleId)
         {
-            return await exampleOperations.GetByIdAsync(exampleId).ConfigureAwait(false);
+            var result = await exampleOperations.GetExamplesAsync(1).ConfigureAwait(false);
+            var result1 = await exampleOperations.GetExamplesAsync(1).ConfigureAwait(false);
+
+            return await exampleOperations.GetExampleByExampleIdAsync(exampleId).ConfigureAwait(false);
         }
     }
 }

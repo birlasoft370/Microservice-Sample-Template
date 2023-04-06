@@ -1,4 +1,5 @@
 ﻿using Example.DataTransfer;
+using System.Collections.Generic;
 using System.Linq.Expressions;
 
 namespace Example.Repository
@@ -30,5 +31,8 @@ namespace Example.Repository
         Task<int> AddRangeAsync(IList<T> entity);
 
         Task<int> DeleteRangeAsync(IList<T> entity);
+
+        IEnumerable<T> ExecuteCommandQuery(string command);
+        
     }
 }

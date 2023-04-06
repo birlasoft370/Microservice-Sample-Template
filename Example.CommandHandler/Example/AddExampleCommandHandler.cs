@@ -22,7 +22,13 @@ namespace Example.CommandHandler.Example
 
         public async Task<AddExampleResponse> Handle(AddExampleRequest request, CancellationToken cancellationToken)
         {
-            var exampleDto = mapper.Map<ExampleDto>(request.ExampleModel);
+            var exampleDto = new ExampleDto()
+            {
+                ExampleId = 0,
+                ExampleName = request.ExampleModel.ExampleName,
+                IsActive=request.ExampleModel.IsActive
+
+            }; //mapper.Map<ExampleDto>(request.ExampleModel);
             var exampleModel = await AddExample(exampleDto);
 
             return new AddExampleResponse()
@@ -42,7 +48,7 @@ namespace Example.CommandHandler.Example
         }
 
 
-        private  async Task PublishMessageExample(ExampleDto exampleDto)
+        private async Task PublishMessageExample(ExampleDto exampleDto)
         {
             var msgEvent = new
             {

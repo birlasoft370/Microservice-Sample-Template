@@ -25,7 +25,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Example.Api.UnitTest", "Exa
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Example.RepositoryHandler.MsSql.Dapper", "Example.RepositoryHandler.MsSql.Dapper\Example.RepositoryHandler.MsSql.Dapper.csproj", "{148DF290-5D40-44B0-A3D2-068705B61CEB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Example.RepositoryHandler.MsSql.EF", "Example.RepositoryHandler.MsSql.EF\Example.RepositoryHandler.MsSql.EF.csproj", "{52161DC5-CA6F-4F8C-8AA0-336B29E23A2C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Example.RepositoryHandler.MsSql.EF", "Example.RepositoryHandler.MsSql.EF\Example.RepositoryHandler.MsSql.EF.csproj", "{52161DC5-CA6F-4F8C-8AA0-336B29E23A2C}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{9BDCB5FE-0AB7-44EC-8247-47E1A203574C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -73,6 +75,10 @@ Global
 		{52161DC5-CA6F-4F8C-8AA0-336B29E23A2C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{52161DC5-CA6F-4F8C-8AA0-336B29E23A2C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{52161DC5-CA6F-4F8C-8AA0-336B29E23A2C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9BDCB5FE-0AB7-44EC-8247-47E1A203574C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9BDCB5FE-0AB7-44EC-8247-47E1A203574C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9BDCB5FE-0AB7-44EC-8247-47E1A203574C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9BDCB5FE-0AB7-44EC-8247-47E1A203574C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

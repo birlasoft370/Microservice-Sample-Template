@@ -18,6 +18,15 @@ namespace Example.RepositoryHandler.MsSql.Dapper.Example
 
         public async Task<IReadOnlyList<ExampleDto>> GetAllAsync()
         {
+            string spName = "Usp_GetExamples";
+            DynamicParameters parameterList = null;
+
+            parameterList = new DynamicParameters();
+            parameterList.Add("@ExampleId", 1, System.Data.DbType.Int32);
+            return GetAllRecs<ExampleDto>(spName, parameterList);
+
+
+
             using var connection = this.ConnectionOpen();
             string sqlQuery = "SELECT * FROM Example";
 
@@ -90,7 +99,7 @@ namespace Example.RepositoryHandler.MsSql.Dapper.Example
             int affectedExampleId;
 
             var existExample = await GetByIdAsync(exampleId) ?? throw new Exception($"ExampleId. Record with Id : {exampleId} not found");
-            
+
             using (var connection = this.ConnectionOpen())
             using (var transaction = connection.BeginTransaction())
             {
@@ -177,6 +186,16 @@ namespace Example.RepositoryHandler.MsSql.Dapper.Example
         }
 
         public Task<int> DeleteRangeAsync(IList<ExampleDto> entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<List<ExampleDto>> GetExamplesAsync(int exampleId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<ExampleDto> ExecuteCommandQuery(string command)
         {
             throw new NotImplementedException();
         }

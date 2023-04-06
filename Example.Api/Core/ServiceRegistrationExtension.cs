@@ -13,7 +13,7 @@ namespace Example.Api.Core
     {
         public static IServiceCollection ServiceCollectionExtension(this IServiceCollection services)
         {
-            
+
             services.AddAutoMapper(typeof(GetExamplesQueryHandler).GetTypeInfo().Assembly);
             services.AddMediatR(option => option.RegisterServicesFromAssemblies(typeof(GetExamplesQueryHandler).GetTypeInfo().Assembly));
 
@@ -22,8 +22,10 @@ namespace Example.Api.Core
             services.AddAutoMapper(typeof(GetExampleByIdQueryHandler).GetTypeInfo().Assembly);
             services.AddMediatR(option => option.RegisterServicesFromAssemblies(typeof(GetExampleByIdQueryHandler).GetTypeInfo().Assembly));
 
-            services.AddAutoMapper(typeof(AddExampleCommandHandler).GetTypeInfo().Assembly); 
+            services.AddAutoMapper(typeof(AddExampleCommandHandler).GetTypeInfo().Assembly);
             services.AddMediatR(option => option.RegisterServicesFromAssemblies(typeof(AddExampleCommandHandler).GetTypeInfo().Assembly));
+
+            // services.AddTransient<IExampleOperations, ExampleOperations>();
 
             services.AddTransient<IGetExamples, GetExamples>();
             services.AddTransient<IGetExampleById, GetExampleById>();
@@ -31,6 +33,10 @@ namespace Example.Api.Core
             services.AddTransient<IUpdateExample, UpdateExample>();
             services.AddTransient<IDeleteExample, DeleteExample>();
             services.AddTransient<IAddUpdateExample, AddUpdateExample>();
+
+
+            // services.AddTransient<IExamples, Examples>();
+
             return services;
         }
     }

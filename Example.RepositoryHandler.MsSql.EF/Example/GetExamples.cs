@@ -7,14 +7,14 @@ namespace Example.RepositoryHandler.MsSql.EF.Example
 {
     public class GetExamples : IGetExamples
     {
-        private IExampleOperations ExamplesSqlOperations { get; }
+        private readonly IExampleOperations ExamplesSqlOperations;
         public GetExamples(IExampleOperations examplesOperatons)
         {
             this.ExamplesSqlOperations = examplesOperatons;
         }
         public async Task<IEnumerable<ExampleDto>> ExecuteAsync()
         {
-            var result = await this.ExamplesSqlOperations.GetAllAsync().ConfigureAwait(false);
+            var result = await this.ExamplesSqlOperations.GetAllAsync();
 
             return result;
         }

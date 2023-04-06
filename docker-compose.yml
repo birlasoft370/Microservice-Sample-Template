@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  example.api:
+    image: ${DOCKER_REGISTRY-}exampleapi
+    build:
+      context: .
+      dockerfile: Example.Api/Dockerfile

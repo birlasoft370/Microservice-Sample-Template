@@ -3,6 +3,7 @@ using AutoMapper;
 using Example.CommandHandler.Example;
 using Example.DataTransfer.Examples;
 using Example.DomainModel.Example;
+using Example.DomainModel.Example.Request;
 using Example.QueryHandler;
 using Example.Repository.Example;
 using FizzWare.NBuilder;

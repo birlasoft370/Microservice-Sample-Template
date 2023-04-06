@@ -2,6 +2,7 @@
 using Example.DataTransfer;
 using Example.Repository;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.Linq.Expressions;
 
 namespace Example.RepositoryHandler.MsSql.EF.CoreSql
@@ -10,10 +11,11 @@ namespace Example.RepositoryHandler.MsSql.EF.CoreSql
         where T : BaseEntity
     {
         private readonly ApplicationDbContext applicationDbContext;
-
+        private readonly DbSet<T> dbSet;
         public BaseRepositoryOperations(ApplicationDbContext exampleDbContext)
         {
             this.applicationDbContext = exampleDbContext ?? throw new ArgumentNullException(nameof(exampleDbContext));
+            this.dbSet = applicationDbContext.Set<T>();
         }
 
         public ApplicationDbContext ApplicationDbContext
@@ -146,6 +148,11 @@ namespace Example.RepositoryHandler.MsSql.EF.CoreSql
                 ApplicationDbContext.Set<T>().Update(entity);
                 await ApplicationDbContext.SaveChangesAsync().ConfigureAwait(false);
             }
+        }
+
+        public IEnumerable<T> ExecuteCommandQuery(string command)
+        {
+           return dbSet.FromSqlRaw(command);
         }
     }
 }

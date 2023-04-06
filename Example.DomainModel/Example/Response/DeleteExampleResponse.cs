@@ -1,8 +1,9 @@
 ﻿// Copyright © CompanyName. All Rights Reserved.
+
 namespace Example.DomainModel.Example
 {
-    public class AddExampleResponse
+    public class DeleteExampleResponse
     {
-        public ExampleModel ExampleModel { get; set; }
+        public int ExampleId { get; set; }
     }
 }

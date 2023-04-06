@@ -1,6 +1,7 @@
 ﻿// Copyright © CompanyName. All Rights Reserved.
 using Example.Api.Controllers;
 using Example.DomainModel.Example;
+using Example.DomainModel.Example.Request;
 using FizzWare.NBuilder;
 using FluentAssertions;
 using MediatR;
@@ -19,7 +20,7 @@ namespace Example.Api.UnitTest.Controller
         public ExampleControllerUnitTests()
         {
             mediatorMoq = new Mock<IMediator>();
-            controller = new ExampleController(mediatorMoq.Object);
+           // controller = new ExampleController(mediatorMoq.Object);
         }
 
         [Fact]

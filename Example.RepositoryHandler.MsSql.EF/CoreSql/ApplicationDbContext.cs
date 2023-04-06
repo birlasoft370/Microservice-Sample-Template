@@ -1,11 +1,20 @@
-﻿using Example.DataTransfer;
+﻿using Example.Common.Utility;
+using Example.DataTransfer;
 using Example.DataTransfer.Examples;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Example.RepositoryHandler.MsSql.EF.CoreSql
 {
+    public class dummyExampleModel : BaseEntity
+    {
+        public int ExampleId { get; set; }
+        public string? ExampleName { get; set; }
+        public char? IsActive { get; set; } = (char)AppConstants.IsActive.Yes;
+    }
+
     public class ApplicationDbContext : DbContext
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
@@ -25,6 +34,13 @@ namespace Example.RepositoryHandler.MsSql.EF.CoreSql
         }
 
         public DbSet<ExampleDto> Example { get; set; }
+
+       // public DbSet<dummyExampleModel> dummyExamples { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<dummyExampleModel>().HasNoKey();
+        }
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {

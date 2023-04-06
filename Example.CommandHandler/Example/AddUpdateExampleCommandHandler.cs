@@ -2,6 +2,7 @@
 using AutoMapper;
 using Example.DataTransfer.Examples;
 using Example.DomainModel.Example;
+using Example.DomainModel.Example.Request;
 using Example.Repository.Example;
 using MediatR;
 
